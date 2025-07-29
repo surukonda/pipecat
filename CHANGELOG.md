@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added a new TTS service, `InworldTTSService`. This service provides
+  low-latency, high-quality speech generation using Inworld's streaming API.
+
 - Added a new field `handle_sigterm` to `PipelineRunner`. It defaults to `False`.
   This field handles SIGTERM signals. The `handle_sigint` field still defaults
   to `True`, but now it handles only SIGINT signals.
@@ -71,10 +74,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Fixed an issue in the `TranscriptProcessor` where newline characters could
+  cause the transcript output to be corrupted (e.g. missing all spaces).
+
+- Fixed an issue in `AudioBufferProcessor` when using `SmallWebRTCTransport` where, if
+  the microphone was muted, track timing was not respected.
+
+- Fixed an error that occurs when pushing an `LLMMessagesFrame`. Only some LLM
+  services, like Grok, are impacted by this issue. The fix is to remove the
+  optional `name` property that was being added to the message.
+
 - Fixed an issue in `AudioBufferProcessor` that caused garbled audio when
   `enable_turn_audio` was enabled and audio resampling was required.
 
-- Fixed a dependency issue for uv users where an `llvmlite` version required python 3.9.
+- Fixed a dependency issue for uv users where an `llvmlite` version required
+  python 3.9.
 
 - Fixed an issue in `MiniMaxHttpTTSService` where the `pitch` param was the
   incorrect type.
@@ -139,7 +153,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   user started early, while the bot was still working through
   `trigger_assistant_response()`.
 
-## [0.0.75] - 2025-07-08
+## [0.0.75] - 2025-07-08 [YANKED]
+
+**This release has been yanked due to resampling issues affecting audio output
+quality and critical bugs impacting `ParallelPipelines` functionality.**
+
+**Please upgrade to version 0.0.76 or later.**
 
 ### Added
 
@@ -200,7 +219,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Remove unncessary push task in each `FrameProcessor`.
 
-## [0.0.74] - 2025-07-03
+## [0.0.74] - 2025-07-03 [YANKED]
+
+**This release has been yanked due to resampling issues affecting audio output
+quality and critical bugs impacting `ParallelPipelines` functionality.**
+
+**Please upgrade to version 0.0.76 or later.**
 
 ### Added
 
